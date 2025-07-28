@@ -67,39 +67,35 @@ e.g.
 
 ### 10. Backend Development (Python)  
 `backend/ayx_plugins/<tool_name.py>`  
-<br>
-Open this using an editor or any IDE to start the tool development. <br>There are four important functions:
 
->`def __init__(self, provider: AMPProviderV2) -> None:`  
+
+Open this using any IDE to start the tool development. <br>There are four important functions:
+
+`def __init__(self, provider: AMPProviderV2) -> None:`  
 This is to initialise the tools - specifically to initialise the variables to be used in the backend code.
 
->`def on_record_batch(self, batch: "Table", anchor: namedtuple) -> None:`  
+`def on_record_batch(self, batch: "Table", anchor: namedtuple) -> None:`  
 This is to handle the input records provided in batches.  Input tool does not required to manipulate this.
 
->`def on_incoming_connection_complete(self, anchor: namedtuple) -> None:`  
+`def on_incoming_connection_complete(self, anchor: namedtuple) -> None:`  
 When an incoming anchor is complete i.e. all input batches are processed, this will be called.  Input tool does not required to handle this.
 
->`def on_complete(self) -> None:`  
+`def on_complete(self) -> None:`  
 Once everything has been manipulated, this is to free up the resources and also finalise the completion.  Final logic happens here for input tool.  
 
+<br>
 Ensure pa is installed with these imports:
+
 ```bash
 import pyarrow as pa
 import pyarrow.compute as pc
 from typing import TYPE_CHECKING
 ```
-> !!! Once you export this plugin - to edit and update inside Alteryx.   
-Edit the python file at: `C:\Users\<user>\AppData\Roaming\Alteryx\Tools\<Tool_Name>_1_0\site-packages\ayx_plugins\<tool_name>.py`
-
 
 ### 11. Frontend Development (React.js)   
-`ui/TestInputTool/src/index.tsx`
+Edit the file at `ui/TestInputTool/src/index.tsx` for the frontend (what you see in the Alteryx tool).
 
-### 12. Run locally in a test environment (hypothetically) - didn't work
-```powershell
-ayx_plugin_cli designer-install
-```
-### 13. Create the YXI and Deploy to Alteryx Designer
+### 12. Create the YXI and Deploy to Alteryx Designer
 Once the frontend, backend, configuration (like icon, description, version, etc) are completed, it can be packaged to YXI file to share and also install into Alteryx Designer.  It is simply running the command:
 
 ```powershell
@@ -107,3 +103,13 @@ ayx_plugin_cli create-yxi
 ```
 
 Creates a new folder `build/yxi/<folder_name>.yxi`
+
+### 13. Exporting index.tsx and Python file changes
+Use the following command to update the YXI file:
+```powershell
+ayx_plugin_cli designer-install
+```
+
+> NOTE: The backend Python file does not update when running `ayx_plugin_cli designer-install`  
+To fix: After creating the YXI, edit the Python file at `C:\Users\<user>\AppData\Roaming\Alteryx\Tools\<Tool_Name>_1_0\site-packages\ayx_plugins\<tool_name>.py`
+<br>

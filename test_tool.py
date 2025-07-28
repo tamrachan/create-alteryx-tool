@@ -34,7 +34,7 @@ class TestTool(PluginV2):
         
         self.total_rows = 0
         # Read value from frontend config
-        self.add_value = provider.tool_config.get("addValue", 2)
+        self.add_value = int(provider.tool_config.get("addValue", 2))
 
         self.provider.io.info(f"{self.name} tool started. Will add {self.add_value} to numeric columns!!.")
 
@@ -60,7 +60,7 @@ class TestTool(PluginV2):
         self.total_rows += batch_count
         self.provider.io.info(f"Received {batch_count} rows in this batch")
         
-        # Add 2 to any numerical data
+        # Add to any numerical data
         updated_columns = []
         column_names = []
 
@@ -70,8 +70,8 @@ class TestTool(PluginV2):
             col_type = field.type
 
             if pa.types.is_integer(col_type) or pa.types.is_floating(col_type):
-                # Add 2 to numeric column
-                updated_col = pc.add(column, 2)
+                # Add to numeric column
+                updated_col = pc.add(column, self.add_value)
                 updated_columns.append(updated_col)
             else:
                 # Keep non-numeric columns unchanged
