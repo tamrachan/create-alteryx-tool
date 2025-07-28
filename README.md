@@ -88,11 +88,14 @@ import pyarrow as pa
 import pyarrow.compute as pc
 from typing import TYPE_CHECKING
 ```
+> !!! Once you export this plugin - to edit and update inside Alteryx.   
+Edit the python file at: `C:\Users\<user>\AppData\Roaming\Alteryx\Tools\<Tool_Name>_1_0\site-packages\ayx_plugins\<tool_name>.py`
+
 
 ### 11. Frontend Development (React.js)   
 `ui/TestInputTool/src/index.tsx`
 
-### 12. Run locally in a test environment - didn't work
+### 12. Run locally in a test environment (hypothetically) - didn't work
 ```powershell
 ayx_plugin_cli designer-install
 ```
