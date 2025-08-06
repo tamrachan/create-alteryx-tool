@@ -28,31 +28,24 @@ import time
 from datetime import datetime
 
 class GoogleAPITool(PluginV2):
-    """A Google API Plugin that takes the first column of a CSV file containing search queries and calls the Google API for custom search."""
+    """A sample Plugin that passes data from an input connection to an output connection."""
 
     def __init__(self, provider: AMPProviderV2):
         """Construct the plugin."""
-
         self.name = "GoogleAPITool"
         self.provider = provider
         
-        self.batches = [] # To collect the input csv data
-        self.search_results = [] # To store the search results
-
-        # Get API key and search engine ID from React input boxes
+        self.batches = []
+        self.search_results = []
         self.api_key = provider.tool_config.get("apiKey")
         self.search_engine_id = provider.tool_config.get("searchEngineId")
 
-        # Get max number of searches per query (must be between 1 and 10)
-        max_num = provider.tool_config.get("maxNum", 10)
-        if max_num is not None and 0 < int(max_num) <= 10:
-            max_num = int(max_num)
-        else:
-            max_num = 10
+        max_num = int(provider.tool_config.get("maxNum", 10))
+        if (max_num < 1 or max_num > 10): # num of searches must be between 1 and 10 inclusively
+            self.max_searches = 10
             self.provider.io.warn("Invalid number of searches - setting max searches to 10")
-        
-        self.max_searches = max_num
-
+        else:
+            self.max_searches = max_num
         self.provider.io.info(f"{self.name} tool started")
 
     def on_record_batch(self, batch: "pa.Table", anchor: Anchor) -> None:
@@ -70,7 +63,7 @@ class GoogleAPITool(PluginV2):
         anchor
             A namedtuple('Anchor', ['name', 'connection']) containing input connection identifiers.
         """
-        self.batches.append(batch) # Append all table inputs
+        self.batches.append(batch) # To get all table inputs
 
     def on_incoming_connection_complete(self, anchor: Anchor) -> None:
         """
@@ -89,13 +82,14 @@ class GoogleAPITool(PluginV2):
 
     def search_google(self, query: str) -> list:
         """Search Google using Custom Search API"""
+        num_results = self.max_searches
 
         url = "https://www.googleapis.com/customsearch/v1"
         params = {
             'key': self.api_key,
             'cx': self.search_engine_id,
             'q': query,
-            'num': self.max_searches
+            'num': num_results
         }
         
         try:
@@ -109,14 +103,10 @@ class GoogleAPITool(PluginV2):
 
     def collect_data(self, query: str) -> None:
         """Collect search data for a single query"""
-
         self.provider.io.info(f"  Searching: {query}")
-
         results = self.search_google(query)
-
         if not results:
             return None
-
         for i, result in enumerate(results, 1):
             self.search_results.append({
                 'query': query,
@@ -153,18 +143,17 @@ class GoogleAPITool(PluginV2):
 
         if self.batches:
             input_table = pa.concat_tables(self.batches)
-            input_rows = input_table.to_pylist() # Convert input csv table to Python list
+            input_rows = input_table.to_pylist()
         else:
             self.provider.io.error("No input data received.")
             return
         
         for item in input_rows:
-            query_text = next(iter(item.values())) #item.get('query')  # get the first VALUE from the dict, not the key
-
+            query_text = next(iter(item.values())) # get the first value from the dict
             if query_text:
-                self.collect_data(query_text) # Append to search results list
+                self.collect_data(query_text)
 
         output_table = pa.Table.from_pylist(self.search_results) # Output table from response
         self.provider.write_to_anchor("Output", output_table)
-        
         self.provider.io.info(f"Data collection complete. {self.name} tool done.")
+        

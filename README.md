@@ -11,7 +11,7 @@ These instructions were created using `Alteryx 2024.2`, `Python 3.10.13` as the 
 
 If you have followed these steps before and already have a virtual environment with the dependencies, skip to Step 7.
 
-### 1. Install [Minicoda3](https://docs.conda.io/en/latest/miniconda.html) (download from the site and install).
+### 1. Install [Miniconda3](https://docs.conda.io/en/latest/miniconda.html) (download from the site and install).
 ### 2. Open Anacoda Prompt and create a virtual environment with the command:
 > For example, my [ENV_NAME] was `alteryx_env` but name it whatever you like.
 ```powershell
@@ -87,20 +87,20 @@ ayx_plugin_cli create-ayx-plugin
 
 > **Tool Name:** [The name of the tool]  
 **Tool Type (input, multiple-inputs, multiple-outputs, optional, output, single-input-single-output, multi-connection-input-anchor) [single-   input-single-output]:** [the type of the tool]  
-**Will this tool write output data? [y/N]** [y/N]
+**Will this tool write output data? [y/N]** [y/N]  
 **Description []:** [description of the tool]  
 **Tool Version [1.0]:** [version of the tool]  
-**DCM Namespace []:**  [DCM Namespace to be used]
-**Do you want to skip generating UI component? [Default: No] [y/N]:** N
+**DCM Namespace []:**  [DCM Namespace to be used]  
+**Do you want to skip generating UI component? [Default: No] [y/N]:** N  
 
 
 e.g. Bedrock Inference Tool uses these settings:  
 **Tool Name:** Bedrock Inference Tool  
 **Tool Type (input, multiple-inputs, multiple-outputs, optional, output, single-input-single-output, multi-connection-input-anchor) [single-   input-single-output]:** single-input-single-output  
-**Will this tool write output data? [y/N]** N
+**Will this tool write output data? [y/N]** N  
 **Description []:** An AI tool which calls the AWS Bedrock API. 
 **Tool Version [1.0]:** 1.0  
-**DCM Namespace []:**
+**DCM Namespace []:**  
 
 <br>
 Congrats - now you have successfully initiated an Alteryx plugin! :)

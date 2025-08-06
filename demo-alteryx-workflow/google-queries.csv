@@ -1,0 +1,31 @@
+﻿query,company_name
+"""Tesco"" ""WhatsApp""",Tesco
+"site:www.tesco.com ""WhatsApp""",Tesco
+"""Sainsbury's"" ""WhatsApp""",Sainsbury's
+"site:www.sainsburys.co.uk ""WhatsApp""",Sainsbury's
+"""Amazon UK"" ""WhatsApp""",Amazon
+"site:www.amazon.co.uk ""WhatsApp""",Amazon
+"""Asda"" ""WhatsApp""",Asda
+"site:www.asda.com ""WhatsApp""",Asda
+"""Morrisons"" ""WhatsApp""",Morrisons
+"site:www.groceries.morrisons.com ""WhatsApp""",Morrisons
+"""Aldi"" ""WhatsApp""",Aldi
+"site:www.aldi.com ""WhatsApp""",Aldi
+"""John Lewis Partnership"" ""WhatsApp""",John Lewis
+"site:www.johnlewis.com ""WhatsApp""",John Lewis
+"""Marks & Spencer"" ""WhatsApp""",M&S
+"site:www.marksandspencer.com ""WhatsApp""",M&S
+"""The Co-operative Group"" ""WhatsApp""",Co-op
+"site:www.coop.co.uk ""WhatsApp""",Co-op
+"""Lidl"" ""WhatsApp""",Lidl
+"site:www.lidl.co.uk ""WhatsApp""",Lidl
+"""Primark (Associated British Foods)"" ""WhatsApp""",Primark
+"site:www.primark.com ""WhatsApp""",Primark
+"""Boots UK"" ""WhatsApp""",Boots UK
+"site:www.boots.com ""WhatsApp""",Boots UK
+"""Kingfisher (B&Q)"" ""WhatsApp""",Kingfisher
+"site:www.diy.com ""WhatsApp""",Kingfisher
+"""Currys"" ""WhatsApp""",Currys
+"site:www.currys.co.uk ""WhatsApp""",Currys
+"""Next"" ""WhatsApp""",Next
+"site:www.next.co.uk ""WhatsApp""",Next
